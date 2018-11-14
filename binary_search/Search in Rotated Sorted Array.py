@@ -24,24 +24,25 @@ class Solution:
     """
     def search(self, A, target):
         # write your code here
-        if not A or len(A) == 0:
+        if not A or len(A) < 1:
             return -1
         start = 0
         end = len(A) - 1
-        while(start + 1 < end):
+        while start + 1 < end:
             mid = start + (end - start) // 2
             if A[mid] == target:
                 return mid
-            elif A[mid] > A[start]:
-                if A[start] <= target and target < A[mid]:
-                    end = mid
-                else:
-                    start = mid
-            elif A[mid] <= A[start]:
+            elif A[mid] < A[start]:
                 if A[mid] < target and target <= A[end]:
                     start = mid
                 else:
                     end = mid
+            elif A[mid] > A[start]:
+                if target >= A[start] and target < A[mid]:
+                    end = mid
+                else:
+                    start = mid
+                
         if A[start] == target:
             return start
         elif A[end] == target:
